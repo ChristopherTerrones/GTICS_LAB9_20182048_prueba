@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <style>
+      .meal-details {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 20px;
+      }
+      .meal-details img {
+        max-width: 300px;
+        height: auto;
+        margin: 0 auto;
+      }
+      .meal-info {
+        flex: 1;
+      }
+      .meal-info h3 {
+        margin-bottom: 15px;
+      }
+      .meal-info p {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center my-4">TELEMEAL</h2>
+      <div class="card meal-details">
+        <img th:src="${detalleComida.strMealThumb}" th:alt="${detalleComida.strMeal}">
+        <div class="card-body meal-info">
+          <h3 th:text="${detalleComida.strMeal}"></h3>
+          <p><strong>Category:</strong> <span th:text="${detalleComida.strCategory}"></span></p>
+          <p><strong>Area:</strong> <span th:text="${detalleComida.strArea}"></span></p>
+          <p th:if="${detalleComida.strTags}"><strong>Tags:</strong> <span th:text="${detalleComida.strTags}"></span></p>
+          <p><strong>Instructions:</strong> <span th:text="${detalleComida.strInstructions}"></span></p>
+          <h4>Ingredients:</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:each="ingredient : ${detalleComida.formattedIngredients}" th:text="${ingredient}"></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

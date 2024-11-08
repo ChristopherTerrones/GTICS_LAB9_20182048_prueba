@@ -9,12 +9,12 @@
         <div class="container">
             <h2 class="text-center my-4">TELEMEAL</h2>
             <div class="mb-4">
-                <div class="input-group">
-                    <input type="text" placeholder="Search for a meal" class="form-control">
+                <form th:action="@{/telemeal/search}" method="get" class="input-group">
+                    <input type="text" name="nombre" placeholder="Search for a meal" class="form-control" required>
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">Search</button>
+                        <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="row">
                 <div th:each="categoria : ${listaCategorias}" class="col-md-4 mb-4">
@@ -27,7 +27,6 @@
                     </div>
                 </div>
             </div>
-            <input type="text" placeholder="Buscar categoría" class="form-control mt-3">
         </div>
     </body>
 </html>
