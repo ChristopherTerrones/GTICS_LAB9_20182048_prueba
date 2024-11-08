@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TELEMEAL</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+        <style>
+            .card {
+                padding: 20px;
+            }
+            .card-title {
+                font-weight: bold;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="text-center my-4">TELEMEAL</h2>
+
+            <!-- Buscador -->
+            <div class="mb-4">
+                <form th:action="@{/telemeal/search}" method="get" class="input-group">
+                    <input type="text" name="nombre" placeholder="Search for a meal" class="form-control" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div th:each="meal : ${listaComidas}" class="col-md-4 mb-4 d-flex">
+                    <div class="card">
+                        <!-- Nombre de la comida encima de la imagen -->
+                        <h5 class="card-title" th:text="${meal.strMeal}"></h5>
+                        <a th:href="@{/telemeal/detail(id=${meal.idMeal})}">
+                            <img th:src="${meal.strMealThumb}" class="card-img-top" th:alt="${meal.strMeal}">
+                        </a>
+                        <p class="card-text text-center" th:text="${meal.strCategory}" style="margin-top: 10px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
