@@ -8,8 +8,10 @@
     <style>
       .meal-details {
         display: flex;
-        align-items: flex-start;
         margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
       }
       .meal-details img {
         max-width: 300px;
@@ -32,6 +34,18 @@
       <h2 class="text-center my-4">TELEMEAL</h2>
       <div class="card meal-details">
         <img th:src="${detalleComida.strMealThumb}" th:alt="${detalleComida.strMeal}">
+        <!-- Botón de "Add to favorite" dentro de un formulario -->
+        <form th:if="${!isFavorite}" th:action="@{/telemeal/addFavorite}" method="post" id="favoriteForm">
+          <input type="hidden" name="id" th:value="${detalleComida.idMeal}"/>
+          <button type="button" class="btn btn-outline-primary" onclick="showModal()">
+            <i class="fas fa-star"></i> Add to favorite
+          </button>
+        </form>
+        <button th:if="${isFavorite}" class="btn btn-success mb-2">
+          <i class="fas fa-check"></i> Favorite
+        </button>
+
+
         <div class="card-body meal-info">
           <h3 th:text="${detalleComida.strMeal}"></h3>
           <p><strong>Category:</strong> <span th:text="${detalleComida.strCategory}"></span></p>
@@ -45,7 +59,38 @@
 
         </div>
       </div>
+      <!-- Modal -->
+      <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Congratulations!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="submitForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              You added this meal to favorites.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitForm()">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <script>
+      function showModal() {
+        $('#successModal').modal('show');
+      }
+
+      function submitForm() {
+        document.getElementById('favoriteForm').submit();
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </body>
 </html>
 
